@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">智慧水务</string>
+    <string name="full_name">农信通智慧水务系统</string>
+    <string name="admin">管理员：</string>
+    <string name="username">用户名：</string>
+    <string name="password">密码：</string>
+
+
+    <!-- 请替换成在语音云官网申请的appid -->
+    <string name="app_id">545724bc</string>
+</resources>

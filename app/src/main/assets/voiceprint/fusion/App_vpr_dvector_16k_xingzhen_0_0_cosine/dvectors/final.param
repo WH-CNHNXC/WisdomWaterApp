@@ -1,0 +1,34 @@
+7767517
+32 32
+Input                    input_1                   0 1 input_1:0 1=30
+ExpandDims               expand_1                  1 1 input_1:0 expand_1:0 0=1
+Convolution              conv2d_1                  1 1 expand_1:0 conv2d_1:0 0=512 1=1 11=5 5=1 6=76800
+BatchNorm                bn_1                      1 1 conv2d_1:0 bn_1:0 0=512 1=0.001
+ReLU                     activation_1              1 1 bn_1:0 activation_1:0
+Convolution              conv2d_2                  1 1 activation_1:0 conv2d_2:0 0=512 1=1 11=5 5=1 6=1310720
+BatchNorm                bn_2                      1 1 conv2d_2:0 bn_2:0 0=512 1=0.001
+ReLU                     activation_2              1 1 bn_2:0 activation_2:0
+Convolution              conv2d_3                  1 1 activation_2:0 conv2d_3:0 0=512 1=1 11=7 5=1 6=1835008
+BatchNorm                bn_3                      1 1 conv2d_3:0 bn_3:0 0=512 1=0.001
+ReLU                     activation_3              1 1 bn_3:0 activation_3:0
+Convolution              conv2d_4                  1 1 activation_3:0 conv2d_4:0 0=512 1=1 5=1 6=262144
+BatchNorm                bn_4                      1 1 conv2d_4:0 bn_4:0 0=512 1=0.001
+ReLU                     activation_4              1 1 bn_4:0 activation_4:0
+Convolution              conv2d_5                  1 1 activation_4:0 conv2d_5:0 0=1500 1=1 5=1 6=768000
+BatchNorm                bn_5                      1 1 conv2d_5:0 bn_5:0 0=1500 1=0.001
+ReLU                     activation_5              1 1 bn_5:0 activation_5:0
+Permute                  permute_1                 1 1 activation_5:0 permute_1:0 0=2
+Squeeze                  squeeze_1                 1 1 permute_1:0 squeeze_1:0 0=1
+Reduction                stats_pool_mean           1 1 squeeze_1:0 stats_pool_mean:0 0=3 1=0 -23303=1,1
+Reduction                stats_pool_std_mean       1 1 squeeze_1:0 stats_pool_std:0_mean 0=3 1=0 -23303=1,1
+BinaryOp                 stats_pool_std_mean_sp    1 1 stats_pool_std:0_mean stats_pool_std:0_mean_sp 0=6 1=1 2=2.0
+BinaryOp                 stats_pool_std_sp         1 1 squeeze_1:0 stats_pool_std:0_sp 0=6 1=1 2=2.0
+Reduction                stats_pool_std_sp_mean    1 1 stats_pool_std:0_sp stats_pool_std:0_sp_mean 0=3 1=0 -23303=1,1
+BinaryOp                 stats_pool_std_sub        2 1 stats_pool_std:0_sp_mean stats_pool_std:0_mean_sp stats_pool_std:0_sub 0=1
+AbsVal                   stats_pool_std_abs        1 1 stats_pool_std:0_sub stats_pool_std:0_abs
+BinaryOp                 stats_pool_std            1 1 stats_pool_std:0_abs stats_pool_std:0 0=6 1=1 2=0.5
+Concat                   concat_1                  2 1 stats_pool_mean:0 stats_pool_std:0 concat_1:0 0=1
+InnerProduct             dense_3                   1 1 concat_1:0 dense_3:0 0=512 1=1 2=1536000
+BatchNorm                bn_6                      1 1 dense_3:0 bn_6:0 0=512 1=0.001
+ReLU                     activation_6              1 1 bn_6:0 activation_6:0
+InnerProduct             dense_4                   1 1 activation_6:0 dense_4:0 0=512 1=1 2=262144

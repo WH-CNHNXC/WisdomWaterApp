@@ -1,0 +1,28 @@
+7767517
+26 26
+Input                    input_1                   0 1 input_1:0 0=40 2=1
+Convolution              TDNN1_conv2d              1 1 input_1:0 TDNN1_conv2d/BiasAdd:0 0=64 1=40 11=5 5=1 6=12800
+BatchNorm                TDNN1_bn                  1 1 TDNN1_conv2d/BiasAdd:0 TDNN1_bn/cond/Merge:0 0=64 1=0.001
+ReLU                     TDNN1_activa              1 1 TDNN1_bn/cond/Merge:0 TDNN1_activa/Relu:0
+Permute                  permute_1                 1 1 TDNN1_activa/Relu:0 permute_1/transpose:0 0=5
+Convolution              TDNN2_conv2d              1 1 permute_1/transpose:0 TDNN2_conv2d/BiasAdd:0 0=64 1=64 11=3 12=2 5=1 6=12288
+BatchNorm                TDNN2_bn                  1 1 TDNN2_conv2d/BiasAdd:0 TDNN2_bn/cond/Merge:0 0=64 1=0.001
+ReLU                     TDNN2_activa              1 1 TDNN2_bn/cond/Merge:0 TDNN2_activa/Relu:0
+Permute                  permute_2                 1 1 TDNN2_activa/Relu:0 permute_2/transpose:0 0=5
+Reshape                  reshape_1                 1 1 permute_2/transpose:0 reshape_1/Reshape:0 0=64 1=-1
+Reduction                mean_axis_-1              1 1 reshape_1/Reshape:0 stats_pool_mean/Mean:0 0=3 1=0 -23303=1,1
+Reduction                std_axis_-1_mean          1 1 reshape_1/Reshape:0 stats_pool_std/Sqrt:0_mean 0=3 1=0 -23303=1,1
+BinaryOp                 std_axis_-1_mean_sp       1 1 stats_pool_std/Sqrt:0_mean stats_pool_std/Sqrt:0_mean_sp 0=6 1=1 2=2.0
+BinaryOp                 std_axis_-1_sp            1 1 reshape_1/Reshape:0 stats_pool_std/Sqrt:0_sp 0=6 1=1 2=2.0
+Reduction                std_axis_-1_sp_mean       1 1 stats_pool_std/Sqrt:0_sp stats_pool_std/Sqrt:0_sp_mean 0=3 1=0 -23303=1,1
+BinaryOp                 std_axis_-1_sub           2 1 stats_pool_std/Sqrt:0_sp_mean stats_pool_std/Sqrt:0_mean_sp std_axis_-1_sub 0=1
+BinaryOp                 std_axis_-1               1 1 std_axis_-1_sub stats_pool_std/Sqrt:0 0=6 1=1 2=0.5
+Concat                   concatenate_1             2 1 stats_pool_mean/Mean:0 stats_pool_std/Sqrt:0 concatenate_1/concat:0 0=1
+InnerProduct             TDNN4_dense               1 1 concatenate_1/concat:0 TDNN4_dense/BiasAdd:0 0=64 1=1 2=8192
+BatchNorm                TDNN4_bn                  1 1 TDNN4_dense/BiasAdd:0 TDNN4_bn/cond/Merge:0 0=64 1=0.001
+ReLU                     TDNN4_activa              1 1 TDNN4_bn/cond/Merge:0 TDNN4_activa/Relu:0
+InnerProduct             TDNN5_dense               1 1 TDNN4_activa/Relu:0 TDNN5_dense/BiasAdd:0 0=32 1=1 2=2048
+BatchNorm                TDNN5_bn                  1 1 TDNN5_dense/BiasAdd:0 TDNN5_bn/cond/Merge:0 0=32 1=0.001
+ReLU                     TDNN5_activa              1 1 TDNN5_bn/cond/Merge:0 TDNN5_activa/Relu:0
+InnerProduct             softmax                   1 1 TDNN5_activa/Relu:0 softmax/Softmax:0_nosoftmax 0=2 1=1 2=64
+Softmax                  softmax_softmax           1 1 softmax/Softmax:0_nosoftmax softmax/Softmax:0

@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/page_bg"
+    android:orientation="vertical"
+    tools:context=".activity.irrigation.IrrigationActivity">
+
+    <include layout="@layout/layout_title" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="张三"
+                android:textColor="@color/white"
+                android:textSize="@dimen/irr_textsize_title" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="，您好！"
+                android:textColor="@color/white"
+                android:textSize="@dimen/irr_textsize_title" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llStopButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="欢迎使用智慧水务系统！"
+                android:textColor="@color/white"
+                android:textSize="@dimen/irr_textsize_title" />
+
+            <Button
+                android:id="@+id/btnStop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/home_btn_bg_2"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:text="停止/退出"
+                android:textSize="@dimen/irr_textsize_title" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llStopText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="感谢使用智慧水务系统！(15s)"
+                android:textColor="@color/white"
+                android:textSize="@dimen/irr_textsize_title" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="使用电量："
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/irr_textsize_1" />
+
+                    <EditText
+                        android:id="@+id/etUsageElec"
+                        android:layout_width="@dimen/irr_et_width"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:text="0"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/irr_textsize_1" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="度"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/irr_textsize_1" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="50dp"
+                        android:text="使用水量："
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/irr_textsize_1" />
+
+                    <EditText
+                        android:id="@+id/etUsageWater"
+                        android:layout_width="@dimen/irr_et_width"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:text="0"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/irr_textsize_1" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="吨"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/irr_textsize_1" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="结束电量："
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/irr_textsize_1" />
+
+                    <EditText
+                        android:id="@+id/etStopElec"
+                        android:layout_width="@dimen/irr_et_width"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:text="0"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/irr_textsize_1" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="度"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/irr_textsize_1" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="50dp"
+                        android:text="结束水量："
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/irr_textsize_1" />
+
+                    <EditText
+                        android:id="@+id/etStopWater"
+                        android:layout_width="@dimen/irr_et_width"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:text="0"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/irr_textsize_1" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="吨"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/irr_textsize_1" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="开始电量："
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/irr_textsize_1" />
+
+                    <EditText
+                        android:id="@+id/etStartElec"
+                        android:layout_width="@dimen/irr_et_width"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:text="0"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/irr_textsize_1" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="度"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/irr_textsize_1" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="50dp"
+                        android:text="开始水量："
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/irr_textsize_1" />
+
+                    <EditText
+                        android:id="@+id/etStartWater"
+                        android:layout_width="@dimen/irr_et_width"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:text="0"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/irr_textsize_1" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="吨"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/irr_textsize_1" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llLoginTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="30dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="登录时间："
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/irr_textsize_1" />
+
+                    <TextView
+                        android:id="@+id/tvLoginTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:autoLink="all"
+                        android:text="yyyy-MM-dd HH:mm:ss"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/irr_textsize_1" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llUsageTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="30dp"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="使用时长："
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/irr_textsize_1" />
+
+                    <TextView
+                        android:id="@+id/tvUsageTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:autoLink="all"
+                        android:text="yyyy-MM-dd HH:mm:ss"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/irr_textsize_1" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/ivWaterPump"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="10dp"
+                    android:src="@drawable/water_pump1" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

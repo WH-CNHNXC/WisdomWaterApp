@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/page_bg"
+    android:orientation="vertical"
+    tools:context=".activity.system.AdminLoginActivity">
+
+    <include layout="@layout/layout_title" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="700dp"
+            android:layout_height="400dp"
+            android:background="@drawable/login_region_bg"
+            android:gravity="center"
+            android:padding="20dp">
+
+            <TextView
+                android:id="@+id/tvAdmin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/etAdmin"
+                android:text="@string/admin"
+                android:textSize="32sp" />
+
+            <EditText
+                android:id="@+id/etAdmin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/tvAdmin"
+                android:inputType="text" />
+
+            <TextView
+                android:id="@+id/tvPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvAdmin"
+                android:layout_alignBaseline="@+id/etPassword"
+                android:layout_alignRight="@+id/tvAdmin"
+                android:text="@string/password"
+                android:textSize="@dimen/textsize_30" />
+
+            <EditText
+                android:id="@+id/etPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/etAdmin"
+                android:layout_alignLeft="@+id/etAdmin"
+                android:layout_marginTop="30dp"
+                android:layout_toRightOf="@+id/tvPassword"
+                android:inputType="textPassword" />
+
+            <Button
+                android:id="@+id/btnLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/etPassword"
+                android:layout_marginTop="50dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="登录"
+                android:textSize="@dimen/textsize_30" />
+
+
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>
