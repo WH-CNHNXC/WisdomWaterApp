@@ -79,11 +79,11 @@ public class IdentificationTdFragment extends Fragment {
         @Override
         //参数v：就是触发点击的View控件。在这里就是被点击了Button按钮
         public void onClick(View v) {
-            if (btSpeak.getText().toString().equals("点击开始说话")) {
+            /*if (btSpeak.getText().toString().equals("点击开始说话")) {
                 startSpeak();
             } else {
                 stopSpeak();
-            }
+            }*/
         }
     }
 
@@ -106,7 +106,7 @@ public class IdentificationTdFragment extends Fragment {
                     //checkmode=recorder.CLOSE_tVAD时，is_available会默认置位为TRUE
                     if (audioinforesponse.is_available) {
                         //声纹注册接口，优先调用此接口注册说话人id
-                        /*Identify_Info info = DetectService.identifyUser(audioinforesponse.recordpath, textType);
+                        Identify_Info info = DetectService.identifyUser(audioinforesponse.recordpath, textType);
                         if (info.ret_code == 0) {
                             if ((info.scores.length > 0) && (info.scores[0].score >= 0.8) && (info.ret_code == 0)) {
                                 Toast.makeText(getContext(), "识别到的用户：" + info.scores[0].spkId + "，" + info.scores[0].score, Toast.LENGTH_LONG).show();
@@ -119,15 +119,15 @@ public class IdentificationTdFragment extends Fragment {
                                 playerTts("未检测到用户");
                             }
                         }
-                        getActivity().finish();*/
+                        getActivity().finish();
 
-                        Intent intent = new Intent(getActivity(), IrrigationActivity.class);
+                        /*Intent intent = new Intent(getActivity(), IrrigationActivity.class);
                         intent.putExtra("userName", "zhangsan");
                         startActivity(intent);
-                        getActivity().finish();
+                        getActivity().finish();*/
                     } else {
 //                        ShowHelper.showAudioReason(getContext(), audioinforesponse);
-                        /*if(audioinforesponse.no_available_reason == Recorder.SNR_NO_PASS){
+                        if(audioinforesponse.no_available_reason == Recorder.SNR_NO_PASS){
                             Toast.makeText(getActivity(), "环境噪声太大", Toast.LENGTH_LONG).show();
                             mTtsUtil.playerTts("环境噪声太大");
                         }
@@ -139,12 +139,12 @@ public class IdentificationTdFragment extends Fragment {
                             Toast.makeText(getActivity(), "有效时长太短", Toast.LENGTH_LONG).show();
                             mTtsUtil.playerTts("有效时长太短");
                         }
-                        getActivity().finish();*/
+                        getActivity().finish();
 
-                        Intent intent = new Intent(getActivity(), IrrigationActivity.class);
+                        /*Intent intent = new Intent(getActivity(), IrrigationActivity.class);
                         intent.putExtra("userName", "zhangsan");
                         startActivity(intent);
-                        getActivity().finish();
+                        getActivity().finish();*/
                     }
                     viewWave.cleanView();
                     btSpeak.setText("点击开始说话");
@@ -234,7 +234,7 @@ public class IdentificationTdFragment extends Fragment {
                         public void run() {
                             stopSpeak();
                         }
-                    }, 3000); //3s自动停止开始识别
+                    }, 5000); //3s自动停止开始识别
                 }else if (ttsType == 2){
                     getActivity().finish();
                 }

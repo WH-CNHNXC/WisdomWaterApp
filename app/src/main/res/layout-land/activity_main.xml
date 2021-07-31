@@ -16,26 +16,90 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/tvIrrigation"
-            android:layout_width="350dp"
-            android:layout_height="250dp"
-            android:background="@drawable/home_btn_bg_1"
+        <LinearLayout
+            android:id="@+id/llIrrigation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="灌溉入口"
-            android:textColor="@color/black"
-            android:textSize="50sp" />
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tvSystem"
-            android:layout_width="350dp"
-            android:layout_height="250dp"
+            <RelativeLayout
+                android:layout_width="300dp"
+                android:layout_height="200dp"
+                android:background="@drawable/home_btn_bg_1">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:padding="20dp"
+                    android:src="@mipmap/icon_home_irr" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:src="@mipmap/next" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="灌溉入口"
+                android:textColor="@color/white"
+                android:textSize="40sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llSystem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="150dp"
-            android:background="@drawable/home_btn_bg_2"
             android:gravity="center"
-            android:text="系统管理"
-            android:textColor="@color/black"
-            android:textSize="50sp" />
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="300dp"
+                android:layout_height="200dp"
+                android:background="@drawable/home_btn_bg_2">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:padding="20dp"
+                    android:src="@mipmap/icon_home_system" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:src="@mipmap/next" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="系统管理"
+                android:textColor="@color/white"
+                android:textSize="40sp" />
+
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

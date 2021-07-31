@@ -5,6 +5,7 @@
         <shape>
             <stroke android:width="3dp" android:color="@color/home_btn_stroke" />
             <solid android:color="@color/home_btn_bg_1" />
+            <corners android:radius="40dp" />
         </shape>
     </item>
     <!--  正常状态  -->
@@ -12,6 +13,7 @@
         <shape>
             <stroke android:width="3dp" android:color="@color/home_btn_stroke" />
             <solid android:color="@color/home_btn_bg_2" />
+            <corners android:radius="40dp" />
         </shape>
     </item>
 </selector>

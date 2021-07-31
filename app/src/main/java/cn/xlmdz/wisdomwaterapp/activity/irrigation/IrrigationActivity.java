@@ -1,15 +1,19 @@
 package cn.xlmdz.wisdomwaterapp.activity.irrigation;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,10 +43,9 @@ import cn.xlmdz.wisdomwaterapp.utils.TtsUtil;
 import cn.xlmdz.wisdomwaterapp.utils.WakeUtil;
 
 public class IrrigationActivity extends BaseActivity {
-    private Button mBtnStop;
     private ImageView mIvIcon;
-    private TextView mTvName, mTvTime, mTvUsageTime;
-    private LinearLayout mLlStopButton, mLlStopText, mLlLoginTime, mLlUsageTime;
+    private TextView mTvName, mTvTime, mTvUsageTime, mTvWelcome;
+    private LinearLayout mLlLoginTime, mLlUsageTime;
     private EditText mEtStartElec, mEtStartWater, mEtStopElec, mEtStopWater, mEtUsageElec, mEtUsageWater;
 
     private long mStartTime, mStopTime;
@@ -59,6 +62,8 @@ public class IrrigationActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // 隐藏状态栏
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_irrigation);
 
         Intent intent = getIntent();
@@ -75,13 +80,11 @@ public class IrrigationActivity extends BaseActivity {
     }
 
     private void initView() {
-        mBtnStop = findViewById(R.id.btnStop);
         mIvIcon = findViewById(R.id.ivWaterPump);
         mTvName = findViewById(R.id.name);
         mTvTime = findViewById(R.id.tvLoginTime);
         mTvUsageTime = findViewById(R.id.tvUsageTime);
-        mLlStopButton = findViewById(R.id.llStopButton);
-        mLlStopText = findViewById(R.id.llStopText);
+        mTvWelcome = findViewById(R.id.tvWelcome);
         mLlLoginTime = findViewById(R.id.llLoginTime);
         mLlUsageTime = findViewById(R.id.llUsageTime);
         mEtStartElec = findViewById(R.id.etStartElec);
@@ -91,14 +94,8 @@ public class IrrigationActivity extends BaseActivity {
         mEtUsageElec = findViewById(R.id.etUsageElec);
         mEtUsageWater = findViewById(R.id.etUsageWater);
 
+        mTvUsageTime.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG); // 下划线
         mTvName.setText(mUser.getName());
-
-        mBtnStop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
     }
 
     // 开始作业
@@ -109,14 +106,14 @@ public class IrrigationActivity extends BaseActivity {
         getElecMeterData(1);
         getWaterMeterData(1);
         relayControl(true);
+
+        mIvIcon.setImageResource(R.mipmap.water_pump2);
     }
 
     // 结束作业
     private void stopIrrigation() {
         mStopTime = System.currentTimeMillis();
 
-        mLlStopButton.setVisibility(View.GONE);
-        mLlStopText.setVisibility(View.VISIBLE);
         mLlLoginTime.setVisibility(View.GONE);
         mLlUsageTime.setVisibility(View.VISIBLE);
 
@@ -125,14 +122,21 @@ public class IrrigationActivity extends BaseActivity {
         minute = (int) (difference / 1000 % 3600) / 60;
         second = (int) (difference / 1000) % 3600 % 60;
         mTvUsageTime.setText(hour + "小时" + minute + "分" + second + "秒");
+        mTvWelcome.setText("感谢使用！(15S)");
+        mTvWelcome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
-        mIvIcon.setImageResource(R.drawable.water_pump2);
+        mIvIcon.setImageResource(R.mipmap.water_pump1);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        WakeUtil.stopWakeuper();
+        //WakeUtil.stopWakeuper();
     }
 
     private void playerTts() {
@@ -172,10 +176,10 @@ public class IrrigationActivity extends BaseActivity {
                 Toast.makeText(IrrigationActivity.this, "检测到唤醒：" + id, Toast.LENGTH_SHORT).show();
                 if (id == 1) {
                     // TODO 结束作业
-                    stopIrrigation();
                     relayControl(false);
                     getElecMeterData(2);
                     getWaterMeterData(2);
+                    stopIrrigation();
                 }
             } catch (JSONException e) {
                 Toast.makeText(IrrigationActivity.this, "唤醒词解析出错", Toast.LENGTH_SHORT).show();
@@ -217,12 +221,24 @@ public class IrrigationActivity extends BaseActivity {
                 if (speechError == null) {
                     Log.e("科大讯飞语音合成：", "播放完成，15S后退出");
 
-                    new Handler().postDelayed(new Runnable() {
+                    /*new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             finish();
                         }
-                    }, 15000); //15s自动返回首页
+                    }, 15000); //15s自动返回首页*/
+
+                    new CountDownTimer(15000, 1000) {
+                        @Override
+                        public void onTick(long millisUntilFinished) {
+                            mTvWelcome.setText("感谢使用！(" + (millisUntilFinished / 1000) + "S)");
+                        }
+
+                        @Override
+                        public void onFinish() {
+                            finish();
+                        }
+                    }.start();
                 } else if (speechError != null) {
                     Log.e("科大讯飞语音合成：", "播放错误：" + speechError.getPlainDescription(true));
                 }
@@ -232,8 +248,8 @@ public class IrrigationActivity extends BaseActivity {
 
     private void getWaterMeterData(int type) {
         int mCableSalveId = 0x01; //设备地址
-        int mCableOffset = 0x08; //寄存器地址
-        int mCableAmount = 0x04; //寄存器数量
+        int mCableOffset = 0x13; //寄存器地址
+        int mCableAmount = 0x02; //寄存器数量
 
         ModbusManager.get().readHoldingRegisters(mCableSalveId, mCableOffset, mCableAmount,
                 new ModbusCallback<ReadHoldingRegistersResponse>() {
@@ -241,13 +257,7 @@ public class IrrigationActivity extends BaseActivity {
                     public void onSuccess(ReadHoldingRegistersResponse readHoldingRegistersResponse) {
                         byte[] data = readHoldingRegistersResponse.getData();
 
-                        byte[] height = new byte[]{data[2], data[3]};
-                        byte[] low = new byte[]{data[0], data[1]};
-                        byte[] decimalBytes = new byte[]{data[6], data[7], data[4], data[5]};
-                        int heightInt = HexUtil.ByteArray2Int(height, false) << 16;
-                        int lowInt = HexUtil.ByteArray2Int(low, false);
-                        double decimal = IEEE754.hex2FloatIeee(decimalBytes);
-                        double value = Double.parseDouble(mDf.format(((double) (heightInt + lowInt) + decimal) / 10.0));
+                        double value = HexUtil.ByteArray2Int(data, false) / 100.0;
                         Log.e("modbus", "水表流量：" + value);
                         if (type == 1) {
                             startWater = value;
@@ -323,7 +333,7 @@ public class IrrigationActivity extends BaseActivity {
                             stopElec = elec;
                             mEtStopElec.setText("" + stopElec);
                             usageElec = stopElec - startElec;
-                            mEtUsageWater.setText("" + usageElec);
+                            mEtUsageElec.setText("" + usageElec);
                         }
 
                         Log.e("modbus", "电表读数：" + elec);

@@ -11,7 +11,7 @@ public class ModbusManager extends ModbusWorker {
     private static volatile ModbusManager sInstance;
 
     private int REQUEST_TIMEOUT = 1000;
-    private String mDevicePaths = "/dev/ttyS3";
+    private String mDevicePaths = "/dev/ttyS2";
     private int mBaudrates = 9600;
     private int mDataBits = 8;
     private int mStopBits = 1;

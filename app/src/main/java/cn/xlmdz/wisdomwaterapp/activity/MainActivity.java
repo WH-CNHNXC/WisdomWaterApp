@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,7 +34,7 @@ import cn.xlmdz.wisdomwaterapp.utils.DetectService;
 import cn.xlmdz.wisdomwaterapp.utils.WakeUtil;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
-    private TextView mTvIrr, mTvSystem;
+    private LinearLayout mTvIrr, mTvSystem;
 
     private static final int mRequestCode = 13;
     //声明一个数组permissions，将所有需要申请的权限都放在里面
@@ -43,9 +45,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // 隐藏状态栏
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
         initPermission();
+
+        // 初始化唤醒对象
+        WakeUtil.initIntance(this, null);
+
         int ret = DetectService.initKvp(this);
         if (ret != 0) {
             new AlertDialog.Builder(this)
@@ -56,9 +64,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
         Recorder.init(this);
 
-        // 初始化唤醒对象
-        WakeUtil.initIntance(this, null);
-
         initView();
     }
 
@@ -66,7 +71,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     protected void onStart() {
         super.onStart();
 
-        WakeUtil.startWakeuper(mWakeuperListener);
+         WakeUtil.startWakeuper(mWakeuperListener);
     }
 
     @Override
@@ -76,8 +81,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void initView() {
-        mTvIrr = findViewById(R.id.tvIrrigation);
-        mTvSystem = findViewById(R.id.tvSystem);
+        mTvIrr = findViewById(R.id.llIrrigation);
+        mTvSystem = findViewById(R.id.llSystem);
         mTvIrr.setOnClickListener(this);
         mTvSystem.setOnClickListener(this);
     }
@@ -85,10 +90,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.tvIrrigation:
+            case R.id.llIrrigation:
                 startActivity(UserVoiceLoginActivity.class);
                 break;
-            case R.id.tvSystem:
+            case R.id.llSystem:
                 startActivity(AdminLoginActivity.class);
                 break;
         }

@@ -9,7 +9,7 @@
     <color name="white">#FFFFFFFF</color>
 
     <!--自定义颜色-->
-    <color name="page_bg">#263259</color>
+    <color name="page_bg">#080E1C</color>
     <color name="home_btn_bg_1">#009ED9</color>
     <color name="home_btn_bg_2">#EFB17E</color>
     <color name="home_btn_stroke">#64697C</color>
