@@ -174,7 +174,7 @@ public class IrrigationActivity extends BaseActivity {
                 object = new JSONObject(text);
                 int id = object.optInt("id");
                 Toast.makeText(IrrigationActivity.this, "检测到唤醒：" + id, Toast.LENGTH_SHORT).show();
-                if (id == 1) {
+                if (id >= 1 && id <= 4) {
                     // TODO 结束作业
                     relayControl(false);
                     getElecMeterData(2);

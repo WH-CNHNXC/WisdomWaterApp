@@ -51,6 +51,7 @@ public class InputVoiceprintActivity extends AppCompatActivity {
         } else {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("警告");
+            builder.setCancelable(false);
             builder.setMessage("用户名不合法，点击确认返回上一页");
             builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
                 @Override
